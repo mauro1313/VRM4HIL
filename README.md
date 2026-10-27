@@ -27,7 +27,7 @@
 <!-- TODO (M6, DOC-04): dalla clonazione al primo grafico di co-simulazione in < 15 minuti -->
 
 ```bash
-git clone https://github.com/OWNER/vrm4hil.git && cd vrm4hil
+git clone https://github.com/mauro1313/VRM4HIL && cd vrm4hil
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 make help
