@@ -1,12 +1,12 @@
-# SPDX-FileCopyrightText: 2026 Gli autori di VRM4-HIL (vedere NOTICE)
+# SPDX-FileCopyrightText: 2026 VRM4-HIL authors (see NOTICE)
 # SPDX-License-Identifier: Apache-2.0
 
-# Versioni dei tool fissate in M0 (VER-07). Letto da CI e Makefile.
-# Una riga per tool, formato CHIAVE=valore, nessuno spazio.
-# Cambiare una versione = una pull request con il motivo nel messaggio.
+# Tool versions pinned in M0 (VER-07). Read by CI and the Makefile.
+# One line per tool, KEY=value format, no spaces.
+# Changing a version = a pull request with the reason in the message.
 
-# Data della release di OSS CAD Suite (https://github.com/YosysHQ/oss-cad-suite-build/releases)
-# TODO (M0): scegliere la release datata piu' recente e scriverla qui, es. 2026-10-26
+# OSS CAD Suite release date (https://github.com/YosysHQ/oss-cad-suite-build/releases)
+# TODO (M0): pick the most recent dated release and write it here, e.g. 2026-10-26
 OSS_CAD_SUITE=2026-10-27
 
 VIVADO=2024.1

@@ -1,4 +1,4 @@
 # tools
 
-- `versions`: versioni fissate dei tool, lette dalla CI
-- `bootstrap_github.py`: crea label, milestone e issue su GitHub da `docs/requirements.yaml`
+- `versions`: pinned tool versions, read by the CI
+- `bootstrap_github.py`: creates labels, milestones, and issues on GitHub from `docs/requirements.yaml`

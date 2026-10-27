@@ -1,7 +1,7 @@
 # model
 
-Modelli Python (responsabile A): riferimento commutato, medio e di piccolo segnale, bit-true.
+Python models (owner A): switched, average, small-signal, and bit-true reference.
 
-- `vrm4hil_model/`: pacchetto importabile
-- `notebooks/`: 00_parametri … 07_correnti, ognuno deve girare con Restart & Run All
-- `tests/`: test automatici dei risultati principali dei notebook
+- `vrm4hil_model/`: importable package
+- `notebooks/`: 00_parameters … 07_currents, each must run with Restart & Run All
+- `tests/`: automated tests of the notebooks' key results

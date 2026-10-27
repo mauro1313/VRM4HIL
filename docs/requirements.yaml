@@ -1,117 +1,117 @@
-# SPDX-FileCopyrightText: 2026 Gli autori di VRM4-HIL (vedere NOTICE)
+# SPDX-FileCopyrightText: 2026 VRM4-HIL authors (see NOTICE)
 # SPDX-License-Identifier: Apache-2.0
 
-# Requisiti del capitolato VRM4-HIL v1.0, in forma leggibile da script.
-# Sorgente unica per: issue su GitHub (tools/bootstrap_github.py) e, a fine
-# progetto, la matrice di tracciabilita' del report D5.
+# Requirements from the VRM4-HIL v1.0 specification, in script-readable form.
+# Single source for: GitHub issues (tools/bootstrap_github.py) and, at the
+# end of the project, the traceability matrix in the D5 report.
 #
-# Campi:
-#   id      identificativo del capitolato
+# Fields:
+#   id      identifier from the specification
 #   prio    MUST | SHOULD | COULD
-#   title   sintesi (il testo vincolante resta quello del capitolato)
-#   verify  test o metodo di verifica (TC-xx, I = ispezione, A = analisi)
-#   ms      milestone a cui il requisito deve essere chiuso per la prima volta
-#   owner   proposta di responsabile secondo la tabella 2.1: confermare in D0
+#   title   summary (the binding text remains the one in the specification)
+#   verify  test or verification method (TC-xx, I = inspection, A = analysis)
+#   ms      milestone by which the requirement must first be closed
+#   owner   proposed owner per table 2.1: to be confirmed in D0
 #
-# Criterio per ms: la prima milestone fra quelle dei suoi test (tabella 6.1),
-# anticipata quando il piano lo richiede prima (es. CI in M0).
+# Criterion for ms: the earliest milestone among those of its tests (table 6.1),
+# brought forward when the plan requires it sooner (e.g. CI in M0).
 
 milestones:
-  M0: {week: 1,  title: "M0 Avvio"}
-  M1: {week: 3,  title: "M1 Modellazione"}
+  M0: {week: 1,  title: "M0 Kickoff"}
+  M1: {week: 3,  title: "M1 Modeling"}
   M2: {week: 5,  title: "M2 ICD, link, DPWM"}
-  M3: {week: 8,  title: "M3 Plant v1 e co-simulazione"}
-  M4: {week: 11, title: "M4 Primo anello chiuso"}
-  M5: {week: 14, title: "M5 Funzioni complete"}
-  M6: {week: 16, title: "M6 Collaudo e release"}
+  M3: {week: 8,  title: "M3 Plant v1 and co-simulation"}
+  M4: {week: 11, title: "M4 First closed loop"}
+  M5: {week: 14, title: "M5 Full features"}
+  M6: {week: 16, title: "M6 Acceptance testing and release"}
 
 requirements:
-  # --- Plant su PYNQ-Z1 (4.2) ---
-  - {id: PLT-01, prio: MUST,   ms: M3, owner: A+D, verify: [TC-01, TC-02, TC-20], title: "Modello real-time del buck a 4 fasi, passo fisso <= 50 ns, deterministico"}
-  - {id: PLT-02, prio: MUST,   ms: M3, owner: D,   verify: [TC-01, TC-02, TC-04], title: "Cattura dei gate a 2,5 ns e media sotto-passo"}
-  - {id: PLT-03, prio: MUST,   ms: M3, owner: A,   verify: [TC-02, TC-04, TC-13], title: "Quattro stati del ramo, conduzione discontinua, shoot-through come guasto"}
-  - {id: PLT-04, prio: MUST,   ms: M4, owner: A,   verify: [TC-07, TC-09, TC-20], title: "Generatore di carico programmabile (gradini, rampe, sinusoide, profilo arbitrario)"}
-  - {id: PLT-05, prio: MUST,   ms: M5, owner: A,   verify: [TC-11, TC-15],        title: "Tensione d'ingresso programmabile (gradini, rampe, buchi)"}
-  - {id: PLT-06, prio: MUST,   ms: M3, owner: A,   verify: [TC-02, TC-18],        title: "Sensori virtuali: quantizzazione, errori, rumore, ritardo; campionamento a +-10 ns"}
-  - {id: PLT-07, prio: MUST,   ms: M2, owner: D,   verify: [TC-03],               title: "Trasmissione della trama v1.0 con latenze limitate e costanti"}
-  - {id: PLT-08, prio: MUST,   ms: M5, owner: A,   verify: [TC-13, TC-14, TC-15, TC-16], title: "Iniezione di guasti"}
-  - {id: PLT-09, prio: MUST,   ms: M3, owner: A+D, verify: [TC-05, TC-07],        title: "Cattura sincrona multicanale con trigger e DMA verso il PS"}
-  - {id: PLT-10, prio: MUST,   ms: M3, owner: A+D, verify: [TC-02],               title: "Registro dei fronti dei gate con marca temporale a 2,5 ns"}
-  - {id: PLT-11, prio: MUST,   ms: M5, owner: A,   verify: [TC-08],               title: "Analizzatore in frequenza, modo A"}
-  - {id: PLT-12, prio: MUST,   ms: M5, owner: A,   verify: [TC-09],               title: "Misura dell'impedenza d'uscita ad anello chiuso"}
-  - {id: PLT-13, prio: SHOULD, ms: M5, owner: A,   verify: [TC-08],               title: "Analizzatore in frequenza, modo B, e confronto con il modo A"}
-  - {id: PLT-14, prio: MUST,   ms: M3, owner: A,   verify: [TC-01, I],            title: "Pacchetto Python vrm4hil in unita' SI, testato sulla scheda"}
-  - {id: PLT-15, prio: MUST,   ms: M3, owner: A,   verify: [TC-13, TC-20],        title: "Autodiagnosi del modello: saturazioni e guasto distruttivo"}
-  - {id: PLT-16, prio: MUST,   ms: M3, owner: A+D, verify: [TC-01],               title: "Generatore PWM interno per il funzionamento autonomo"}
-  - {id: PLT-17, prio: SHOULD, ms: M5, owner: A,   verify: [TC-07],               title: "Rete d'uscita a due rami con ESL"}
-  - {id: PLT-18, prio: COULD,  ms: M6, owner: A,   verify: [A],                   title: "Modello termico della DCR"}
-  - {id: PLT-19, prio: COULD,  ms: M6, owner: A,   verify: [TC-20],               title: "Libreria di profili di carico tipo AI"}
-  - {id: PLT-20, prio: COULD,  ms: M6, owner: D,   verify: [TC-02],               title: "Cattura a 1,25 ns (ISERDES) e passo <= 25 ns"}
+  # --- Plant on PYNQ-Z1 (4.2) ---
+  - {id: PLT-01, prio: MUST,   ms: M3, owner: A+D, verify: [TC-01, TC-02, TC-20], title: "Real-time model of the 4-phase buck, fixed step <= 50 ns, deterministic"}
+  - {id: PLT-02, prio: MUST,   ms: M3, owner: D,   verify: [TC-01, TC-02, TC-04], title: "Gate capture at 2.5 ns and sub-step averaging"}
+  - {id: PLT-03, prio: MUST,   ms: M3, owner: A,   verify: [TC-02, TC-04, TC-13], title: "Four leg states, discontinuous conduction, shoot-through as a fault"}
+  - {id: PLT-04, prio: MUST,   ms: M4, owner: A,   verify: [TC-07, TC-09, TC-20], title: "Programmable load generator (steps, ramps, sine wave, arbitrary profile)"}
+  - {id: PLT-05, prio: MUST,   ms: M5, owner: A,   verify: [TC-11, TC-15],        title: "Programmable input voltage (steps, ramps, dips)"}
+  - {id: PLT-06, prio: MUST,   ms: M3, owner: A,   verify: [TC-02, TC-18],        title: "Virtual sensors: quantization, errors, noise, delay; sampling at +-10 ns"}
+  - {id: PLT-07, prio: MUST,   ms: M2, owner: D,   verify: [TC-03],               title: "v1.0 frame transmission with bounded, constant latency"}
+  - {id: PLT-08, prio: MUST,   ms: M5, owner: A,   verify: [TC-13, TC-14, TC-15, TC-16], title: "Fault injection"}
+  - {id: PLT-09, prio: MUST,   ms: M3, owner: A+D, verify: [TC-05, TC-07],        title: "Synchronous multichannel capture with trigger and DMA to the PS"}
+  - {id: PLT-10, prio: MUST,   ms: M3, owner: A+D, verify: [TC-02],               title: "Gate edge log with 2.5 ns timestamp"}
+  - {id: PLT-11, prio: MUST,   ms: M5, owner: A,   verify: [TC-08],               title: "Frequency response analyzer, mode A"}
+  - {id: PLT-12, prio: MUST,   ms: M5, owner: A,   verify: [TC-09],               title: "Closed-loop output impedance measurement"}
+  - {id: PLT-13, prio: SHOULD, ms: M5, owner: A,   verify: [TC-08],               title: "Frequency response analyzer, mode B, and comparison with mode A"}
+  - {id: PLT-14, prio: MUST,   ms: M3, owner: A,   verify: [TC-01, I],            title: "Python package vrm4hil in SI units, tested on the board"}
+  - {id: PLT-15, prio: MUST,   ms: M3, owner: A,   verify: [TC-13, TC-20],        title: "Model self-diagnosis: saturations and destructive fault"}
+  - {id: PLT-16, prio: MUST,   ms: M3, owner: A+D, verify: [TC-01],               title: "Internal PWM generator for standalone operation"}
+  - {id: PLT-17, prio: SHOULD, ms: M5, owner: A,   verify: [TC-07],               title: "Two-branch output network with ESL"}
+  - {id: PLT-18, prio: COULD,  ms: M6, owner: A,   verify: [A],                   title: "Thermal model of the DCR"}
+  - {id: PLT-19, prio: COULD,  ms: M6, owner: A,   verify: [TC-20],               title: "Library of AI-style load profiles"}
+  - {id: PLT-20, prio: COULD,  ms: M6, owner: D,   verify: [TC-02],               title: "1.25 ns capture (ISERDES) and step <= 25 ns"}
 
-  # --- Controllore su iCE40UP5K (4.3) ---
-  - {id: CTL-01, prio: MUST,   ms: M2, owner: D, verify: [I],             title: "Solo RTL e primitive del dispositivo, catena open source"}
-  - {id: CTL-02, prio: MUST,   ms: M2, owner: D, verify: [TC-04],         title: "DPWM a 4 fasi interallacciate, 500 kHz, passo <= 5 ns"}
-  - {id: CTL-03, prio: MUST,   ms: M2, owner: D, verify: [TC-04, TC-06],  title: "Risoluzione efficace del duty <= 2^-16 con dither o sigma-delta"}
-  - {id: CTL-04, prio: MUST,   ms: M2, owner: D, verify: [TC-04, VER-03], title: "Dead time sui due fronti, tempi minimi, mai H e L alti insieme"}
-  - {id: CTL-05, prio: MUST,   ms: M2, owner: D, verify: [TC-04],         title: "Duty massimo programmabile, abilitazione sicura per fase"}
-  - {id: CTL-06, prio: MUST,   ms: M2, owner: D, verify: [TC-03, TC-04],  title: "SAMPLE_REQ sincrono con le portanti, ritardo programmabile"}
-  - {id: CTL-07, prio: MUST,   ms: M2, owner: D, verify: [TC-03, TC-16],  title: "Ricevitore del link: CRC, sequenza, timeout, CDC, contatori"}
-  - {id: CTL-08, prio: MUST,   ms: M4, owner: D, verify: [TC-06, TC-07, TC-08], title: "Compensatore digitale programmabile, anti-windup, bumpless"}
-  - {id: CTL-09, prio: MUST,   ms: M4, owner: D, verify: [TC-06, TC-09],  title: "AVP con R_LL programmabile"}
-  - {id: CTL-10, prio: MUST,   ms: M5, owner: D, verify: [TC-10],         title: "Bilanciamento attivo delle correnti di fase"}
-  - {id: CTL-11, prio: MUST,   ms: M4, owner: D, verify: [TC-05, TC-12],  title: "Soft-start, transizioni del VID, sequenze, PGOOD"}
-  - {id: CTL-12, prio: MUST,   ms: M5, owner: D, verify: [TC-13, TC-14, TC-15, TC-16], title: "Protezioni con guasto memorizzato e ripartenza su comando"}
-  - {id: CTL-13, prio: MUST,   ms: M4, owner: D, verify: [TC-18],         title: "Configurazione e telemetria su UART"}
-  - {id: CTL-14, prio: SHOULD, ms: M5, owner: D, verify: [TC-05],         title: "Avvio con uscita precaricata (pre-bias)"}
-  - {id: CTL-15, prio: SHOULD, ms: M5, owner: D, verify: [TC-11],         title: "Feedforward della tensione d'ingresso"}
-  - {id: CTL-16, prio: SHOULD, ms: M6, owner: D, verify: [TC-19],         title: "Sottoinsieme PMBus su I2C"}
-  - {id: CTL-17, prio: COULD,  ms: M6, owner: D, verify: [TC-07],         title: "Controllo non lineare dei transitori"}
-  - {id: CTL-18, prio: COULD,  ms: M6, owner: D, verify: [A],             title: "Phase shedding ed emulazione di diodo"}
-  - {id: CTL-19, prio: COULD,  ms: M6, owner: D, verify: [D],             title: "Mini analizzatore logico interno in SPRAM"}
-  - {id: CTL-20, prio: COULD,  ms: M6, owner: D, verify: [TC-04],         title: "DPWM ibrido con risoluzione <= 2,5 ns"}
-  - {id: CTL-21, prio: MUST,   ms: M2, owner: D, verify: [TC-17],         title: "LUT <= 80 %, timing con margine >= 5 % su tre seed"}
+  # --- Controller on iCE40UP5K (4.3) ---
+  - {id: CTL-01, prio: MUST,   ms: M2, owner: D, verify: [I],             title: "RTL and device primitives only, open source toolchain"}
+  - {id: CTL-02, prio: MUST,   ms: M2, owner: D, verify: [TC-04],         title: "4-phase interleaved DPWM, 500 kHz, step <= 5 ns"}
+  - {id: CTL-03, prio: MUST,   ms: M2, owner: D, verify: [TC-04, TC-06],  title: "Effective duty resolution <= 2^-16 with dither or sigma-delta"}
+  - {id: CTL-04, prio: MUST,   ms: M2, owner: D, verify: [TC-04, VER-03], title: "Dead time on both edges, minimum times, H and L never both high"}
+  - {id: CTL-05, prio: MUST,   ms: M2, owner: D, verify: [TC-04],         title: "Programmable maximum duty, safe per-phase enable"}
+  - {id: CTL-06, prio: MUST,   ms: M2, owner: D, verify: [TC-03, TC-04],  title: "SAMPLE_REQ synchronous with the carriers, programmable delay"}
+  - {id: CTL-07, prio: MUST,   ms: M2, owner: D, verify: [TC-03, TC-16],  title: "Link receiver: CRC, sequence, timeout, CDC, counters"}
+  - {id: CTL-08, prio: MUST,   ms: M4, owner: D, verify: [TC-06, TC-07, TC-08], title: "Programmable digital compensator, anti-windup, bumpless"}
+  - {id: CTL-09, prio: MUST,   ms: M4, owner: D, verify: [TC-06, TC-09],  title: "AVP with programmable R_LL"}
+  - {id: CTL-10, prio: MUST,   ms: M5, owner: D, verify: [TC-10],         title: "Active balancing of phase currents"}
+  - {id: CTL-11, prio: MUST,   ms: M4, owner: D, verify: [TC-05, TC-12],  title: "Soft-start, VID transitions, sequencing, PGOOD"}
+  - {id: CTL-12, prio: MUST,   ms: M5, owner: D, verify: [TC-13, TC-14, TC-15, TC-16], title: "Protections with latched fault and restart on command"}
+  - {id: CTL-13, prio: MUST,   ms: M4, owner: D, verify: [TC-18],         title: "Configuration and telemetry over UART"}
+  - {id: CTL-14, prio: SHOULD, ms: M5, owner: D, verify: [TC-05],         title: "Startup with preloaded output (pre-bias)"}
+  - {id: CTL-15, prio: SHOULD, ms: M5, owner: D, verify: [TC-11],         title: "Input voltage feedforward"}
+  - {id: CTL-16, prio: SHOULD, ms: M6, owner: D, verify: [TC-19],         title: "PMBus subset over I2C"}
+  - {id: CTL-17, prio: COULD,  ms: M6, owner: D, verify: [TC-07],         title: "Nonlinear transient control"}
+  - {id: CTL-18, prio: COULD,  ms: M6, owner: D, verify: [A],             title: "Phase shedding and diode emulation"}
+  - {id: CTL-19, prio: COULD,  ms: M6, owner: D, verify: [D],             title: "Mini internal logic analyzer in SPRAM"}
+  - {id: CTL-20, prio: COULD,  ms: M6, owner: D, verify: [TC-04],         title: "Hybrid DPWM with resolution <= 2.5 ns"}
+  - {id: CTL-21, prio: MUST,   ms: M2, owner: D, verify: [TC-17],         title: "LUT <= 80%, timing margin >= 5% over three seeds"}
 
-  # --- Interfacce (4.4) ---
-  - {id: IF-01, prio: MUST,   ms: M2, owner: A+D, verify: [I, TC-03], title: "Collegamento fisico secondo la tabella 5.1"}
-  - {id: IF-02, prio: MUST,   ms: M2, owner: A+D, verify: [I],        title: "LVCMOS33, stati sicuri all'accensione, sequenza documentata"}
-  - {id: IF-03, prio: MUST,   ms: M2, owner: D,   verify: [TC-03],    title: "Link sensori trama v1.0, SCLK 50 MHz, CRC-8"}
-  - {id: IF-04, prio: MUST,   ms: M4, owner: D,   verify: [TC-18],    title: "UART di configurazione fra PYNQ-Z1 e iCE40"}
-  - {id: IF-05, prio: SHOULD, ms: M6, owner: D,   verify: [TC-19],    title: "Bus I2C/PMBus fra le schede"}
-  - {id: IF-06, prio: MUST,   ms: M2, owner: A+D, verify: [I],        title: "Mappe dei registri versionate in D2"}
-  - {id: IF-07, prio: COULD,  ms: M6, owner: D,   verify: [TC-03],    title: "Link in modalita' DDR"}
+  # --- Interfaces (4.4) ---
+  - {id: IF-01, prio: MUST,   ms: M2, owner: A+D, verify: [I, TC-03], title: "Physical connection per table 5.1"}
+  - {id: IF-02, prio: MUST,   ms: M2, owner: A+D, verify: [I],        title: "LVCMOS33, safe states at power-up, documented sequencing"}
+  - {id: IF-03, prio: MUST,   ms: M2, owner: D,   verify: [TC-03],    title: "Sensor link v1.0 frame, SCLK 50 MHz, CRC-8"}
+  - {id: IF-04, prio: MUST,   ms: M4, owner: D,   verify: [TC-18],    title: "Configuration UART between PYNQ-Z1 and iCE40"}
+  - {id: IF-05, prio: SHOULD, ms: M6, owner: D,   verify: [TC-19],    title: "I2C/PMBus bus between the boards"}
+  - {id: IF-06, prio: MUST,   ms: M2, owner: A+D, verify: [I],        title: "Register maps versioned in D2"}
+  - {id: IF-07, prio: COULD,  ms: M6, owner: D,   verify: [TC-03],    title: "Link in DDR mode"}
 
-  # --- Prestazioni (4.5) ---
-  - {id: PRF-01, prio: MUST, ms: M4, owner: A+D, verify: [TC-06], title: "Regolazione statica entro 2 mV dalla load line"}
-  - {id: PRF-02, prio: MUST, ms: M4, owner: A+D, verify: [TC-06], title: "Pendenza della load line entro +-5 %"}
-  - {id: PRF-03, prio: MUST, ms: M4, owner: A+D, verify: [TC-06], title: "Ripple di Vout <= 6 mV picco-picco"}
-  - {id: PRF-04, prio: MUST, ms: M4, owner: A+D, verify: [TC-06], title: "Ciclo limite <= 1,5 mV picco-picco"}
-  - {id: PRF-05, prio: MUST, ms: M4, owner: A+D, verify: [TC-07], title: "Gradino 20-80 A: +-25 mV, assestamento <= 80 us"}
-  - {id: PRF-06, prio: MUST, ms: M5, owner: A+D, verify: [TC-08], title: "Guadagno d'anello: fc >= 35 kHz, margini, scarto dal modello"}
-  - {id: PRF-07, prio: MUST, ms: M5, owner: A+D, verify: [TC-09], title: "Impedenza d'uscita <= 3,5 R_LL"}
-  - {id: PRF-08, prio: MUST, ms: M5, owner: A+D, verify: [TC-10], title: "Condivisione di corrente entro +-5 %"}
-  - {id: PRF-09, prio: MUST, ms: M5, owner: A+D, verify: [TC-11], title: "Transitorio di linea <= 15 mV"}
-  - {id: PRF-10, prio: MUST, ms: M4, owner: A+D, verify: [TC-05], title: "Soft-start: durata, monotonia, sovraelongazione, PGOOD"}
-  - {id: PRF-11, prio: MUST, ms: M5, owner: A+D, verify: [TC-12], title: "Transizione del VID 0,8-0,9 V"}
-  - {id: PRF-12, prio: MUST, ms: M5, owner: A+D, verify: [TC-13, TC-14, TC-15, TC-16], title: "Tempi di reazione delle protezioni"}
-  - {id: PRF-13, prio: MUST, ms: M4, owner: A+D, verify: [TC-18], title: "Accuratezza e frequenza della telemetria"}
-  - {id: PRF-14, prio: MUST, ms: M3, owner: A+D, verify: [TC-01, TC-02], title: "Fedelta' del plant: bit-exact in simulazione, scarti limitati sul banco"}
-  - {id: PRF-15, prio: MUST, ms: M6, owner: A+D, verify: [TC-20], title: "Robustezza: un'ora con carico casuale senza guasti"}
+  # --- Performance (4.5) ---
+  - {id: PRF-01, prio: MUST, ms: M4, owner: A+D, verify: [TC-06], title: "Static regulation within 2 mV of the load line"}
+  - {id: PRF-02, prio: MUST, ms: M4, owner: A+D, verify: [TC-06], title: "Load line slope within +-5%"}
+  - {id: PRF-03, prio: MUST, ms: M4, owner: A+D, verify: [TC-06], title: "Vout ripple <= 6 mV peak-to-peak"}
+  - {id: PRF-04, prio: MUST, ms: M4, owner: A+D, verify: [TC-06], title: "Limit cycle <= 1.5 mV peak-to-peak"}
+  - {id: PRF-05, prio: MUST, ms: M4, owner: A+D, verify: [TC-07], title: "20-80 A step: +-25 mV, settling <= 80 us"}
+  - {id: PRF-06, prio: MUST, ms: M5, owner: A+D, verify: [TC-08], title: "Loop gain: fc >= 35 kHz, margins, deviation from the model"}
+  - {id: PRF-07, prio: MUST, ms: M5, owner: A+D, verify: [TC-09], title: "Output impedance <= 3.5 R_LL"}
+  - {id: PRF-08, prio: MUST, ms: M5, owner: A+D, verify: [TC-10], title: "Current sharing within +-5%"}
+  - {id: PRF-09, prio: MUST, ms: M5, owner: A+D, verify: [TC-11], title: "Line transient <= 15 mV"}
+  - {id: PRF-10, prio: MUST, ms: M4, owner: A+D, verify: [TC-05], title: "Soft-start: duration, monotonicity, overshoot, PGOOD"}
+  - {id: PRF-11, prio: MUST, ms: M5, owner: A+D, verify: [TC-12], title: "VID transition 0.8-0.9 V"}
+  - {id: PRF-12, prio: MUST, ms: M5, owner: A+D, verify: [TC-13, TC-14, TC-15, TC-16], title: "Protection response times"}
+  - {id: PRF-13, prio: MUST, ms: M4, owner: A+D, verify: [TC-18], title: "Telemetry accuracy and rate"}
+  - {id: PRF-14, prio: MUST, ms: M3, owner: A+D, verify: [TC-01, TC-02], title: "Plant fidelity: bit-exact in simulation, bounded deviation on the bench"}
+  - {id: PRF-15, prio: MUST, ms: M6, owner: A+D, verify: [TC-20], title: "Robustness: one hour with random load and no faults"}
 
-  # --- Verifica e qualita' (4.6) ---
-  - {id: VER-01, prio: MUST,   ms: M1, owner: A+D, verify: [I, TC-02], title: "Modelli Python: medio, commutato, bit-true"}
-  - {id: VER-02, prio: MUST,   ms: M2, owner: D,   verify: [I],        title: "Test cocotb per ogni modulo RTL contro il bit-true"}
-  - {id: VER-03, prio: MUST,   ms: M2, owner: D,   verify: [I],        title: "Prove formali SymbiYosys P1-P6"}
-  - {id: VER-04, prio: MUST,   ms: M3, owner: A+D, verify: [TC-07],    title: "Co-simulazione ad anello chiuso prima dell'HIL"}
-  - {id: VER-05, prio: MUST,   ms: M0, owner: D,   verify: [I],        title: "Integrazione continua su GitHub Actions, main sempre verde"}
-  - {id: VER-06, prio: MUST,   ms: M6, owner: D,   verify: [I],        title: "Collaudo automatico sulla PYNQ-Z1 con un solo comando"}
-  - {id: VER-07, prio: MUST,   ms: M3, owner: D,   verify: [I],        title: "Build riproducibili: Vivado da Tcl, versioni fissate"}
-  - {id: VER-08, prio: SHOULD, ms: M5, owner: D,   verify: [I],        title: "Copertura RTL del controllore >= 90 %"}
-  - {id: VER-09, prio: SHOULD, ms: M1, owner: A,   verify: [A],        title: "Verifica incrociata con un simulatore circuitale"}
+  # --- Verification and quality (4.6) ---
+  - {id: VER-01, prio: MUST,   ms: M1, owner: A+D, verify: [I, TC-02], title: "Python models: average, switched, bit-true"}
+  - {id: VER-02, prio: MUST,   ms: M2, owner: D,   verify: [I],        title: "cocotb tests for every RTL module against the bit-true model"}
+  - {id: VER-03, prio: MUST,   ms: M2, owner: D,   verify: [I],        title: "SymbiYosys formal proofs P1-P6"}
+  - {id: VER-04, prio: MUST,   ms: M3, owner: A+D, verify: [TC-07],    title: "Closed-loop co-simulation before HIL"}
+  - {id: VER-05, prio: MUST,   ms: M0, owner: D,   verify: [I],        title: "Continuous integration on GitHub Actions, main always green"}
+  - {id: VER-06, prio: MUST,   ms: M6, owner: D,   verify: [I],        title: "Automated acceptance testing on the PYNQ-Z1 with a single command"}
+  - {id: VER-07, prio: MUST,   ms: M3, owner: D,   verify: [I],        title: "Reproducible builds: Vivado from Tcl, pinned versions"}
+  - {id: VER-08, prio: SHOULD, ms: M5, owner: D,   verify: [I],        title: "Controller RTL coverage >= 90%"}
+  - {id: VER-09, prio: SHOULD, ms: M1, owner: A,   verify: [A],        title: "Cross-check with a circuit simulator"}
 
-  # --- Documentazione (4.7) ---
-  - {id: DOC-01, prio: MUST,   ms: M1, owner: A+D, verify: [I], title: "Report D1 di modellazione e budget"}
-  - {id: DOC-02, prio: MUST,   ms: M2, owner: A+D, verify: [I], title: "ICD e mappe dei registri (D2)"}
-  - {id: DOC-03, prio: MUST,   ms: M6, owner: A+D, verify: [I], title: "Report di collaudo D5 con matrice di tracciabilita'"}
-  - {id: DOC-04, prio: MUST,   ms: M6, owner: A+D, verify: [I], title: "README con avvio rapido in meno di 15 minuti"}
-  - {id: DOC-05, prio: SHOULD, ms: M6, owner: A+D, verify: [I], title: "Video dimostrativo e sintesi di una pagina"}
-  - {id: DOC-06, prio: MUST,   ms: M6, owner: A+D, verify: [I], title: "Registro delle decisioni: almeno 5 ADR"}
+  # --- Documentation (4.7) ---
+  - {id: DOC-01, prio: MUST,   ms: M1, owner: A+D, verify: [I], title: "D1 modeling and budget report"}
+  - {id: DOC-02, prio: MUST,   ms: M2, owner: A+D, verify: [I], title: "ICD and register maps (D2)"}
+  - {id: DOC-03, prio: MUST,   ms: M6, owner: A+D, verify: [I], title: "D5 acceptance report with traceability matrix"}
+  - {id: DOC-04, prio: MUST,   ms: M6, owner: A+D, verify: [I], title: "README with quick start in under 15 minutes"}
+  - {id: DOC-05, prio: SHOULD, ms: M6, owner: A+D, verify: [I], title: "Demo video and one-page summary"}
+  - {id: DOC-06, prio: MUST,   ms: M6, owner: A+D, verify: [I], title: "Decision log: at least 5 ADRs"}

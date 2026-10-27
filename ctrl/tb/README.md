@@ -1,7 +1,7 @@
 # ctrl/tb
 
-Una sottocartella per banco: `ctrl/tb/<modulo>/` con `Makefile` e `test_<modulo>.py`.
-`make test` dalla radice esegue ogni sottocartella che contiene un Makefile e controlla `results.xml`.
+One subfolder per testbench: `ctrl/tb/<module>/` with `Makefile` and `test_<module>.py`.
+`make test` from the root runs every subfolder containing a Makefile and checks `results.xml`.
 
-Nota: con cocotb 2.x alcune variabili del Makefile hanno cambiato nome rispetto alla 1.x.
-Controllate sulla documentazione della versione fissata in `requirements.txt` quali usare.
+Note: with cocotb 2.x some Makefile variables were renamed compared to 1.x.
+Check the documentation for the version pinned in `requirements.txt` to see which ones to use.

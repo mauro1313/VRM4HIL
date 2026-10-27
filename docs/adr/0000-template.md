@@ -1,27 +1,27 @@
-# NNNN. Titolo della decisione
+# NNNN. Decision title
 
-- Stato: proposta | accettata | sostituita da NNNN
-- Data: AAAA-MM-GG
-- Autori: A, D
-- Requisiti: CTL-xx, PRF-yy
+- Status: proposed | accepted | superseded by NNNN
+- Date: YYYY-MM-DD
+- Authors: A, D
+- Requirements: CTL-xx, PRF-yy
 
-## Contesto
+## Context
 
-Quale problema, quali vincoli, quali numeri (con il riferimento al notebook o al report che li calcola).
+What problem, what constraints, what numbers (with a reference to the notebook or report that computes them).
 
-## Alternative considerate
+## Alternatives considered
 
-1. **Alternativa 1**: com'è fatta; pro; contro; costo stimato in risorse, ritardo, ore.
-2. **Alternativa 2**: ...
+1. **Alternative 1**: how it works; pros; cons; estimated cost in resources, delay, hours.
+2. **Alternative 2**: ...
 
-## Decisione
+## Decision
 
-Che cosa si è scelto, in una frase.
+What was chosen, in one sentence.
 
-## Motivazione
+## Rationale
 
-Perché questa e non le altre, con i numeri.
+Why this one and not the others, with the numbers.
 
-## Conseguenze
+## Consequences
 
-Che cosa diventa più facile, che cosa più difficile, che cosa va verificato e con quale test.
+What becomes easier, what becomes harder, what needs to be verified and with which test.

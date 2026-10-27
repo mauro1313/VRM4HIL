@@ -1,7 +1,7 @@
-# SPDX-FileCopyrightText: 2026 Gli autori di VRM4-HIL (vedere NOTICE)
+# SPDX-FileCopyrightText: 2026 VRM4-HIL authors (see NOTICE)
 # SPDX-License-Identifier: Apache-2.0
 
-# Build e output generati
+# Build and generated output
 build/
 *.json.tmp
 
@@ -19,12 +19,12 @@ results.xml
 *.fst
 *.ghw
 
-# SymbiYosys: cartelle di output <nome>_<task>
+# SymbiYosys: output folders <name>_<task>
 **/formal/*_prove/
 **/formal/*_cover/
 **/formal/*_bmc/
 
-# Vivado (il progetto si rigenera da plant/hw/build.tcl: niente progetti in Git)
+# Vivado (the project regenerates from plant/hw/build.tcl: no projects in Git)
 .Xil/
 *.jou
 *.log
@@ -37,10 +37,10 @@ vivado*.backup.*
 *.gen/
 *.ip_user_files/
 
-# Editor e sistema
+# Editor and system
 .vscode/
 .idea/
 .DS_Store
 
-# Report: i file intermedi no, i report finali si'
+# Reports: intermediate files no, final reports yes
 reports/tmp/

@@ -1,20 +1,20 @@
-## Cosa cambia e perché
+## What changes and why
 
-<!-- Una o due frasi. Collegate la issue: "Closes #NN". Requisiti toccati: CTL-xx, PLT-xx... -->
+<!-- One or two sentences. Link the issue: "Closes #NN". Requirements touched: CTL-xx, PLT-xx... -->
 
-## Come è stato verificato
+## How it was verified
 
-<!-- Test aggiunti o modificati, comando per rieseguirli, esito. -->
+<!-- Tests added or modified, command to rerun them, outcome. -->
 
-## Checklist (Appendice D.4)
+## Checklist (Appendix D.4)
 
-- [ ] Il cambiamento ha un test che fallirebbe senza di esso
-- [ ] RTL: reset dei registri che servono, nessun latch inferito
-- [ ] RTL: attraversamenti di dominio solo con sincronizzatori o FIFO
-- [ ] RTL: larghezze e formati in virgola fissa dichiarati in testa al modulo
-- [ ] Nessun nuovo warning del linter
-- [ ] Modello bit-true aggiornato nello stesso commit dell'RTL
-- [ ] Timing e occupazione non peggiorati oltre la soglia concordata (riepilogo CI)
-- [ ] Python: unità nei nomi, niente valori incollati nel codice
-- [ ] Documentazione e `docs/icd/regs.yaml` aggiornati se cambia il comportamento visibile
-- [ ] Se cambia l'ICD: revisione dell'ICD approvata da A e D
+- [ ] The change has a test that would fail without it
+- [ ] RTL: reset of the registers that need it, no inferred latches
+- [ ] RTL: clock-domain crossings only through synchronizers or FIFOs
+- [ ] RTL: widths and fixed-point formats declared at the top of the module
+- [ ] No new linter warnings
+- [ ] Bit-true model updated in the same commit as the RTL
+- [ ] Timing and utilization not worsened beyond the agreed threshold (CI summary)
+- [ ] Python: units in the names, no hardcoded values
+- [ ] Documentation and `docs/icd/regs.yaml` updated if visible behavior changes
+- [ ] If the ICD changes: ICD revision approved by A and D

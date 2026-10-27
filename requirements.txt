@@ -1,8 +1,8 @@
-# SPDX-FileCopyrightText: 2026 Gli autori di VRM4-HIL (vedere NOTICE)
+# SPDX-FileCopyrightText: 2026 VRM4-HIL authors (see NOTICE)
 # SPDX-License-Identifier: Apache-2.0
 
-# TODO (M0, VER-07): dopo il primo `pip install -r requirements.txt` fissare
-# ogni versione esatta (pip freeze, poi tenere solo i pacchetti diretti).
+# TODO (M0, VER-07): after the first `pip install -r requirements.txt` pin
+# every exact version (pip freeze, then keep only the direct packages).
 cocotb==2.0.1
 numpy
 scipy

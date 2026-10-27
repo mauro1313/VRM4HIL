@@ -1,3 +1,3 @@
 # sw
 
-Pacchetto Python `vrm4hil` che gira sulla PYNQ-Z1: API del plant in unità SI (PLT-14), modulo `analysis` (§ 17), test runner.
+Python package `vrm4hil` that runs on the PYNQ-Z1: plant API in SI units (PLT-14), `analysis` module (§ 17), test runner.

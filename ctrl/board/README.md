@@ -1,4 +1,4 @@
 # ctrl/board
 
-Tutto ciò che dipende dalla scheda iCE40UP5K: `top.v` (PLL, SB_IO, LED), `board.pcf`.
-Scheda usata: TODO (modello, oscillatore, pin di clock globale, programmatore) — da documentare in D2.
+Everything that depends on the iCE40UP5K board: `top.v` (PLL, SB_IO, LED), `board.pcf`.
+Board used: TODO (model, oscillator, global clock pin, programmer) — to be documented in D2.

@@ -1,13 +1,13 @@
-# SPDX-FileCopyrightText: 2026 Gli autori di VRM4-HIL (vedere NOTICE)
+# SPDX-FileCopyrightText: 2026 VRM4-HIL authors (see NOTICE)
 # SPDX-License-Identifier: Apache-2.0
 
-# Build del controllore su iCE40UP5K con la catena open source (CTL-01).
-# Uso: make -C ctrl bin    oppure dalla radice: make ice40
+# Build of the controller on iCE40UP5K with the open source toolchain (CTL-01).
+# Usage: make -C ctrl bin    or from the root: make ice40
 #
-# Parametri che dipendono dalla scheda (da fissare in M0 e documentare in D2):
-#   PACKAGE  contenitore dell'UP5K sulla vostra scheda (sg48 per iCEBreaker e UPduino)
-#   PCF      assegnazione dei pin
-#   PROG     comando di programmazione
+# Board-dependent parameters (to be fixed in M0 and documented in D2):
+#   PACKAGE  UP5K package on your board (sg48 for iCEBreaker and UPduino)
+#   PCF      pin assignment
+#   PROG     programming command
 
 TOP     ?= top
 PACKAGE ?= sg48
@@ -16,23 +16,23 @@ FREQ    ?= 100
 SEED    ?= 1
 PROG    ?= iceprog
 
-# rtl/: logica portabile. board/: top di scheda, PLL, SB_IO.
+# rtl/: portable logic. board/: board top, PLL, SB_IO.
 SRCS := $(wildcard rtl/*.v rtl/*.sv board/*.v board/*.sv)
 OUT  := build
 
 .PHONY: bin prog clean
 
-# Ogni riga di una ricetta gira in una shell separata: il controllo e la build
-# devono stare nella stessa riga, altrimenti "exit 0" non ferma nulla.
+# Each recipe line runs in a separate shell: the check and the build
+# must be on the same line, otherwise "exit 0" does not stop anything.
 bin:
-	@if [ ! -f "$(PCF)" ]; then echo "ice40: $(PCF) non esiste ancora, salto (esercizio M0)"; \
+	@if [ ! -f "$(PCF)" ]; then echo "ice40: $(PCF) does not exist yet, skipping (M0 exercise)"; \
 	else $(MAKE) $(OUT)/$(TOP).bin; fi
 
 $(OUT)/$(TOP).json: $(SRCS)
 	mkdir -p $(OUT)
 	yosys -q -l $(OUT)/yosys.log -p "synth_ice40 -top $(TOP) -json $@" $(SRCS)
 
-# --report scrive in JSON occupazione e frequenze massime: e' l'ingresso di TC-17.
+# --report writes utilization and max frequencies in JSON: it is the input to TC-17.
 $(OUT)/$(TOP).asc: $(OUT)/$(TOP).json $(PCF)
 	nextpnr-ice40 --up5k --package $(PACKAGE) --json $< --pcf $(PCF) \
 	  --freq $(FREQ) --seed $(SEED) --asc $@ \
@@ -44,8 +44,8 @@ $(OUT)/$(TOP).bin: $(OUT)/$(TOP).asc
 prog: $(OUT)/$(TOP).bin
 	$(PROG) $<
 
-# TODO (M2, CTL-21): obiettivo che ripete il place-and-route su tre seed
-# consecutivi e fallisce se occupazione > 80 % o margine di timing < 5 %.
+# TODO (M2, CTL-21): target that repeats place-and-route over three
+# consecutive seeds and fails if utilization > 80% or timing margin < 5%.
 
 clean:
 	rm -rf $(OUT)

@@ -1,13 +1,13 @@
-# SPDX-FileCopyrightText: 2026 Gli autori di VRM4-HIL (vedere NOTICE)
+# SPDX-FileCopyrightText: 2026 VRM4-HIL authors (see NOTICE)
 # SPDX-License-Identifier: Apache-2.0
 
-# Sorgente unica delle mappe dei registri (IF-06, § 5.5).
-# Da qui si generano: costanti Verilog, classi Python, tabelle di D2 (`make docs`).
-# Lo schema qui sotto è una proposta: va confermato con la revisione dell'ICD in M2.
+# Single source of truth for the register maps (IF-06, § 5.5).
+# From here are generated: Verilog constants, Python classes, D2 tables (`make docs`).
+# The schema below is a proposal: it must be confirmed with the ICD review in M2.
 #
-# Campi per registro:
-#   name, addr, width (16|32), access (R|W|RW|W1C), reset, unit, format (Qm.n o "bits"),
-#   shadow (true se fa parte di un gruppo con applicazione atomica), desc
+# Fields per register:
+#   name, addr, width (16|32), access (R|W|RW|W1C), reset, unit, format (Qm.n or "bits"),
+#   shadow (true if part of a group with atomic application), desc
 
 icd_version: "1.0"
 
@@ -19,9 +19,9 @@ blocks:
         addr: 0x000
         width: 32
         access: R
-        reset: 0x00000000   # TODO: codifica di identificativo + versione ICD
+        reset: 0x00000000   # TODO: encoding of identifier + ICD version
         format: bits
-        desc: Identificazione del blocco e versione dell'ICD (indirizzo fisso)
+        desc: Block identification and ICD version (fixed address)
 
   ctrl:
     bus: uart
@@ -32,4 +32,4 @@ blocks:
         access: R
         reset: 0x00000000   # TODO
         format: bits
-        desc: Identificazione del controllore, versione dell'ICD e del firmware
+        desc: Controller identification, ICD version, and firmware version

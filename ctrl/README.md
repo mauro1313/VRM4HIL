@@ -1,8 +1,8 @@
 # ctrl
 
-Controllore su iCE40UP5K (responsabile D). Build: `make -C ctrl bin` o `make ice40` dalla radice.
+Controller on iCE40UP5K (owner D). Build: `make -C ctrl bin` or `make ice40` from the root.
 
-- `rtl/`: logica portabile (niente primitive del dispositivo)
-- `board/`: top di scheda, PLL, SB_IO, file `.pcf`
-- `formal/`: file `.sby` e proprietà P1–P7
-- `tb/`: un banco cocotb per sottocartella
+- `rtl/`: portable logic (no device primitives)
+- `board/`: board top, PLL, SB_IO, `.pcf` file
+- `formal/`: `.sby` files and properties P1–P7
+- `tb/`: one cocotb testbench per subfolder

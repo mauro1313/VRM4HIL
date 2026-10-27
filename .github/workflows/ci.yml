@@ -1,8 +1,8 @@
-# SPDX-FileCopyrightText: 2026 Gli autori di VRM4-HIL (vedere NOTICE)
+# SPDX-FileCopyrightText: 2026 VRM4-HIL authors (see NOTICE)
 # SPDX-License-Identifier: Apache-2.0
 
-# Integrazione continua (VER-05): tutto cio' che non richiede Vivado o l'hardware.
-# Il ramo principale deve restare sempre verde.
+# Continuous integration (VER-05): everything that does not require Vivado or hardware.
+# The main branch must always stay green.
 name: ci
 
 on:
@@ -18,33 +18,33 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Versione di OSS CAD Suite da tools/versions
+      - name: OSS CAD Suite version from tools/versions
         id: ocs
         run: |
           d=$(grep '^OSS_CAD_SUITE=' tools/versions | cut -d= -f2)
           if [[ ! "$d" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
-            echo "::error::OSS_CAD_SUITE in tools/versions non e' una data (valore: $d)"; exit 1
+            echo "::error::OSS_CAD_SUITE in tools/versions is not a date (value: $d)"; exit 1
           fi
           echo "date=$d" >> "$GITHUB_OUTPUT"
           echo "compact=${d//-/}" >> "$GITHUB_OUTPUT"
 
-      - name: Cache di OSS CAD Suite
+      - name: OSS CAD Suite cache
         id: cache
         uses: actions/cache@v4
         with:
           path: ~/oss-cad-suite
           key: oss-cad-suite-linux-x64-${{ steps.ocs.outputs.date }}
 
-      - name: Scarica OSS CAD Suite
+      - name: Download OSS CAD Suite
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
           url="https://github.com/YosysHQ/oss-cad-suite-build/releases/download/${{ steps.ocs.outputs.date }}/oss-cad-suite-linux-x64-${{ steps.ocs.outputs.compact }}.tgz"
           curl -fsSL -o /tmp/ocs.tgz "$url"
           tar -xzf /tmp/ocs.tgz -C ~
 
-      # Prima OSS CAD Suite nel PATH, poi setup-python: cosi' il python3 usato
-      # per cocotb e' quello di setup-python, non quello della suite.
-      - name: OSS CAD Suite nel PATH
+      # OSS CAD Suite goes on the PATH before setup-python: this way the python3 used
+      # for cocotb is the one from setup-python, not the one bundled with the suite.
+      - name: OSS CAD Suite on PATH
         run: echo "$HOME/oss-cad-suite/bin" >> "$GITHUB_PATH"
 
       - uses: actions/setup-python@v5
@@ -54,7 +54,7 @@ jobs:
 
       - run: pip install -r requirements.txt
 
-      - name: Versioni effettive
+      - name: Effective versions
         run: yosys -V && nextpnr-ice40 --version && verilator --version && iverilog -V | head -1 && python --version
 
       - run: make lint
@@ -62,7 +62,7 @@ jobs:
       - run: make formal
       - run: make ice40
 
-      - name: Report di place-and-route
+      - name: Place-and-route report
         if: always()
         uses: actions/upload-artifact@v4
         with:
