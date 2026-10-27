@@ -24,6 +24,8 @@ ognuna si risolve con una frase di motivazione, oppure con una ADR se non è ovv
 ### Intestazione di ogni modulo
 
 ```verilog
+// SPDX-FileCopyrightText: 2026 Gli autori di VRM4-HIL (vedere NOTICE)
+// SPDX-License-Identifier: Apache-2.0
 // -----------------------------------------------------------------------------
 // Modulo   : nome_modulo
 // Funzione : una frase
@@ -53,3 +55,18 @@ ognuna si risolve con una frase di motivazione, oppure con una ADR se non è ovv
 
 - Ogni cartella ha un README di poche righe.
 - Decisioni non ovvie in `docs/adr/NNNN-titolo.md` (modello: `0000-template.md`).
+
+## Licenze
+
+Scelta motivata in [ADR 0001](adr/0001-licenza.md).
+
+- Codice: Apache-2.0. Ogni file sorgente nuovo (`.v`, `.sv`, `.py`, `.tcl`, `.sby`, `Makefile`, `.yaml`, `.pcf`, `.xdc`) inizia con le due righe SPDX, nel commento del proprio linguaggio (`//` per Verilog, `#` per Python, Tcl, Make, YAML e PCF). Negli script con shebang vanno subito dopo la prima riga.
+
+  ```
+  SPDX-FileCopyrightText: 2026 Gli autori di VRM4-HIL (vedere NOTICE)
+  SPDX-License-Identifier: Apache-2.0
+  ```
+
+- Documentazione, figure e report: CC BY 4.0 (`docs/LICENSE`), senza intestazione nei singoli file.
+- Materiale di terzi (per esempio il file XDC di Digilent o esempi di vendor): si conserva l'intestazione originale, non si aggiunge la nostra, e si annota in `NOTICE` con la sua licenza. Gli IP Xilinx non si committano: si rigenerano dagli script Tcl (VER-07).
+- Nessun materiale coperto da accordi di riservatezza (§ 1.5).

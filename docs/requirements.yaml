@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Gli autori di VRM4-HIL (vedere NOTICE)
+# SPDX-License-Identifier: Apache-2.0
+
 # Requisiti del capitolato VRM4-HIL v1.0, in forma leggibile da script.
 # Sorgente unica per: issue su GitHub (tools/bootstrap_github.py) e, a fine
 # progetto, la matrice di tracciabilita' del report D5.

@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Gli autori di VRM4-HIL (vedere NOTICE)
+# SPDX-License-Identifier: Apache-2.0
+
 # Integrazione continua (VER-05): tutto cio' che non richiede Vivado o l'hardware.
 # Il ramo principale deve restare sempre verde.
 name: ci

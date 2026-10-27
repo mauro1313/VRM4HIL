@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Gli autori di VRM4-HIL (vedere NOTICE)
+# SPDX-License-Identifier: Apache-2.0
+
 # Sorgente unica delle mappe dei registri (IF-06, § 5.5).
 # Da qui si generano: costanti Verilog, classi Python, tabelle di D2 (`make docs`).
 # Lo schema qui sotto è una proposta: va confermato con la revisione dell'ICD in M2.

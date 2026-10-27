@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Gli autori di VRM4-HIL (vedere NOTICE)
+# SPDX-License-Identifier: Apache-2.0
+
 # Build e output generati
 build/
 *.json.tmp

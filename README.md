@@ -66,4 +66,10 @@ effetti termici (salvo PLT-18), parassiti oltre l'ESL, non linearità magnetiche
 
 ## Licenza
 
-<!-- TODO: Apache-2.0 o MIT, scelta in M0 -->
+- **Codice** (RTL, script, Python, file di build): [Apache License 2.0](LICENSE).
+- **Documentazione** (testi, figure e report in `docs/` e `reports/`): [CC BY 4.0](docs/LICENSE).
+
+Chi riusa o ridistribuisce il progetto deve citare gli autori e conservare il file [NOTICE](NOTICE).
+Motivazioni della scelta: [ADR 0001](docs/adr/0001-licenza.md).
+
+Copyright 2026 Mauro Orru e NOME COGNOME COLLEGA.

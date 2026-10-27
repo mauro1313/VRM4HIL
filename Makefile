@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Gli autori di VRM4-HIL (vedere NOTICE)
+# SPDX-License-Identifier: Apache-2.0
+
 # VRM4-HIL - Makefile di radice.
 # Ogni artefatto della repository si rigenera con uno di questi obiettivi (VER-07).
 # Gli obiettivi senza sorgenti avvisano e terminano senza errore: in M0 la CI

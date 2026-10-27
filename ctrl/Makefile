@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Gli autori di VRM4-HIL (vedere NOTICE)
+# SPDX-License-Identifier: Apache-2.0
+
 # Build del controllore su iCE40UP5K con la catena open source (CTL-01).
 # Uso: make -C ctrl bin    oppure dalla radice: make ice40
 #

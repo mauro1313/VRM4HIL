@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Gli autori di VRM4-HIL (vedere NOTICE)
+# SPDX-License-Identifier: Apache-2.0
+
 # Versioni dei tool fissate in M0 (VER-07). Letto da CI e Makefile.
 # Una riga per tool, formato CHIAVE=valore, nessuno spazio.
 # Cambiare una versione = una pull request con il motivo nel messaggio.

@@ -1,0 +1,16 @@
+VRM4-HIL
+Banco Hardware-in-the-Loop su FPGA per un regolatore di tensione multifase
+https://github.com/mauro1313/VRM4HIL
+
+Copyright 2026 Mauro Orru e NOME COGNOME COLLEGA
+
+Questo prodotto include software sviluppato da Mauro Orru e NOME COGNOME COLLEGA
+nell'ambito del progetto VRM4-HIL.
+
+Il codice (RTL, script, Python, file di build) è distribuito con licenza
+Apache License 2.0: vedere il file LICENSE.
+La documentazione (testi, figure e report in docs/ e reports/) è distribuita
+con licenza Creative Commons Attribution 4.0 International: vedere docs/LICENSE.
+
+Chi ridistribuisce questo progetto, anche modificato, deve conservare
+questo file NOTICE (Apache License 2.0, sezione 4.d).

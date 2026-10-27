@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2026 Gli autori di VRM4-HIL (vedere NOTICE)
+# SPDX-License-Identifier: Apache-2.0
 """Crea su GitHub label, milestone e issue a partire da docs/requirements.yaml.
 
 Fa il passo 1 del § 8.2 del capitolato: una issue per milestone e una per ogni
