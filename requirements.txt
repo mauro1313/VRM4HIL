@@ -1,0 +1,11 @@
+# TODO (M0, VER-07): dopo il primo `pip install -r requirements.txt` fissare
+# ogni versione esatta (pip freeze, poi tenere solo i pacchetti diretti).
+cocotb==2.0.1
+numpy
+scipy
+matplotlib
+control
+pytest
+pyyaml
+pyserial
+jupyterlab

@@ -1,0 +1,32 @@
+# Sorgente unica delle mappe dei registri (IF-06, § 5.5).
+# Da qui si generano: costanti Verilog, classi Python, tabelle di D2 (`make docs`).
+# Lo schema qui sotto è una proposta: va confermato con la revisione dell'ICD in M2.
+#
+# Campi per registro:
+#   name, addr, width (16|32), access (R|W|RW|W1C), reset, unit, format (Qm.n o "bits"),
+#   shadow (true se fa parte di un gruppo con applicazione atomica), desc
+
+icd_version: "1.0"
+
+blocks:
+  plant:
+    bus: axi-lite
+    registers:
+      - name: ID
+        addr: 0x000
+        width: 32
+        access: R
+        reset: 0x00000000   # TODO: codifica di identificativo + versione ICD
+        format: bits
+        desc: Identificazione del blocco e versione dell'ICD (indirizzo fisso)
+
+  ctrl:
+    bus: uart
+    registers:
+      - name: ID
+        addr: 0x00
+        width: 32
+        access: R
+        reset: 0x00000000   # TODO
+        format: bits
+        desc: Identificazione del controllore, versione dell'ICD e del firmware

@@ -1,0 +1,11 @@
+# Versioni dei tool fissate in M0 (VER-07). Letto da CI e Makefile.
+# Una riga per tool, formato CHIAVE=valore, nessuno spazio.
+# Cambiare una versione = una pull request con il motivo nel messaggio.
+
+# Data della release di OSS CAD Suite (https://github.com/YosysHQ/oss-cad-suite-build/releases)
+# TODO (M0): scegliere la release datata piu' recente e scriverla qui, es. 2026-10-26
+OSS_CAD_SUITE=YYYY-MM-DD
+
+VIVADO=2024.1
+PYNQ_IMAGE=3.1
+PYTHON=3.12

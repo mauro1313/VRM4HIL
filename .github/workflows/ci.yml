@@ -1,0 +1,80 @@
+# Integrazione continua (VER-05): tutto cio' che non richiede Vivado o l'hardware.
+# Il ramo principale deve restare sempre verde.
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  rtl:
+    name: lint, test, formal, ice40
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Versione di OSS CAD Suite da tools/versions
+        id: ocs
+        run: |
+          d=$(grep '^OSS_CAD_SUITE=' tools/versions | cut -d= -f2)
+          if [[ ! "$d" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+            echo "::error::OSS_CAD_SUITE in tools/versions non e' una data (valore: $d)"; exit 1
+          fi
+          echo "date=$d" >> "$GITHUB_OUTPUT"
+          echo "compact=${d//-/}" >> "$GITHUB_OUTPUT"
+
+      - name: Cache di OSS CAD Suite
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: ~/oss-cad-suite
+          key: oss-cad-suite-linux-x64-${{ steps.ocs.outputs.date }}
+
+      - name: Scarica OSS CAD Suite
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          url="https://github.com/YosysHQ/oss-cad-suite-build/releases/download/${{ steps.ocs.outputs.date }}/oss-cad-suite-linux-x64-${{ steps.ocs.outputs.compact }}.tgz"
+          curl -fsSL -o /tmp/ocs.tgz "$url"
+          tar -xzf /tmp/ocs.tgz -C ~
+
+      # Prima OSS CAD Suite nel PATH, poi setup-python: cosi' il python3 usato
+      # per cocotb e' quello di setup-python, non quello della suite.
+      - name: OSS CAD Suite nel PATH
+        run: echo "$HOME/oss-cad-suite/bin" >> "$GITHUB_PATH"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Versioni effettive
+        run: yosys -V && nextpnr-ice40 --version && verilator --version && iverilog -V | head -1 && python --version
+
+      - run: make lint
+      - run: make test
+      - run: make formal
+      - run: make ice40
+
+      - name: Report di place-and-route
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ice40-build
+          path: ctrl/build/
+          if-no-files-found: ignore
+
+  python:
+    name: test Python
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: make pytest

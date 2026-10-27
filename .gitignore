@@ -1,0 +1,43 @@
+# Build e output generati
+build/
+*.json.tmp
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.pytest_cache/
+
+# cocotb
+sim_build/
+results.xml
+*.vcd
+*.fst
+*.ghw
+
+# SymbiYosys: cartelle di output <nome>_<task>
+**/formal/*_prove/
+**/formal/*_cover/
+**/formal/*_bmc/
+
+# Vivado (il progetto si rigenera da plant/hw/build.tcl: niente progetti in Git)
+.Xil/
+*.jou
+*.log
+*.str
+vivado*.backup.*
+*.cache/
+*.hw/
+*.runs/
+*.sim/
+*.gen/
+*.ip_user_files/
+
+# Editor e sistema
+.vscode/
+.idea/
+.DS_Store
+
+# Report: i file intermedi no, i report finali si'
+reports/tmp/
