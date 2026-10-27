@@ -72,4 +72,4 @@ effetti termici (salvo PLT-18), parassiti oltre l'ESL, non linearità magnetiche
 Chi riusa o ridistribuisce il progetto deve citare gli autori e conservare il file [NOTICE](NOTICE).
 Motivazioni della scelta: [ADR 0001](docs/adr/0001-licenza.md).
 
-Copyright 2026 Mauro Orru e NOME COGNOME COLLEGA.
+Copyright 2026 Mauro Orru e Enrico Mattana.
