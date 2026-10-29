@@ -11,6 +11,7 @@ __pycache__/
 *.pyc
 .ipynb_checkpoints/
 .pytest_cache/
+.test/
 
 # cocotb
 sim_build/
