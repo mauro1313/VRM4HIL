@@ -39,13 +39,20 @@ AREAS = {
     "DOC": ("area:doc", "Documentation"),
 }
 
+# Owner codes used in requirements.yaml (table 2.1) -> person.
+OWNERS = {
+    "A": "Enrico",
+    "D": "Mauro",
+    "A+D": "Enrico+Mauro",
+}
+
 LABELS = {
     "prio:MUST": ("b60205", "Mandatory requirement"),
     "prio:SHOULD": ("d93f0b", "Expected requirement"),
     "prio:COULD": ("c5def5", "Optional requirement"),
-    "owner:A": ("0e8a16", "Owner A (analog/power)"),
-    "owner:D": ("1d76db", "Owner D (digital/FPGA)"),
-    "owner:A+D": ("5319e7", "Shared responsibility"),
+    f"owner:{OWNERS['A']}": ("0e8a16", "Owner A (analog/power)"),
+    f"owner:{OWNERS['D']}": ("1d76db", "Owner D (digital/FPGA)"),
+    f"owner:{OWNERS['A+D']}": ("5319e7", "Shared responsibility"),
     "type:requirement": ("ededed", "Issue generated from a requirement"),
     "type:milestone": ("fbca04", "Exit criteria for a milestone"),
     **{label: ("bfdadc", desc) for label, desc in AREAS.values()},
@@ -128,7 +135,7 @@ def requirement_body(r: dict) -> str:
         f"| Field | Value |\n|---|---|\n"
         f"| Verify | {verify} |\n"
         f"| Milestone | {r['ms']} |\n"
-        f"| Owner (proposed) | {r['owner']} |\n\n"
+        f"| Owner (proposed) | {OWNERS[r['owner']]} ({r['owner']}) |\n\n"
         f"### Done when\n"
         f"- [ ] Implemented and passed review (linked PR)\n"
         f"- [ ] Verification ({verify}) performed\n"
@@ -161,13 +168,10 @@ def main() -> None:
     reqs = [r for r in data["requirements"] if r["prio"] in a.prio]
 
     # Current state of the repository (reads: done even in dry-run).
-    existing_ms = set()
-    existing_issues = set()
-    if a.apply:
-        existing_ms = {m["title"] for m in json.loads(
-            gh(["api", "repos/{owner}/{repo}/milestones?state=all&per_page=100"], a.apply, read=True))}
-        existing_issues = {i["title"] for i in json.loads(
-            gh(["issue", "list", "--state", "all", "--limit", "1000", "--json", "title"], a.apply, read=True))}
+    existing_ms = {m["title"] for m in json.loads(
+        gh(["api", "repos/{owner}/{repo}/milestones?state=all&per_page=100"], a.apply, read=True))}
+    existing_issues = {i["title"] for i in json.loads(
+        gh(["issue", "list", "--state", "all", "--limit", "1000", "--json", "title"], a.apply, read=True))}
 
     print("== Labels")
     for name, (color, desc) in LABELS.items():
@@ -197,7 +201,7 @@ def main() -> None:
         if title in existing_issues:
             print(f"  already exists: {title}")
             continue
-        labels = ["type:requirement", f"prio:{r['prio']}", AREAS[r["id"].split("-")[0]][0], f"owner:{r['owner']}"]
+        labels = ["type:requirement", f"prio:{r['prio']}", AREAS[r["id"].split("-")[0]][0], f"owner:{OWNERS[r['owner']]}"]
         args = ["issue", "create", "--title", title, "--body", requirement_body(r),
                 "--milestone", milestones[r["ms"]]["title"]]
         for lab in labels:
