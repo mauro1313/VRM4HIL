@@ -1,6 +1,6 @@
 # 0001. Project licenses
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-10-27
 - Authors: A, D
 - Requirements: § 1.5 (intellectual property), § 7.9 criterion 5
