@@ -1,0 +1,134 @@
+# =============================================================================
+# VRM4-HIL - reference parameters (single source for all notebooks)
+# File rules
+#  - All quantities are in SI base units (V, A, ohm, H, F, s, Hz,
+#    V/s, A/s). No mOhm or nH: conversion is done only once here.
+#  - Numbers with decimal mantissa and signed exponent (150.0e-9, 5.0e+5):
+#    PyYAML follows YAML 1.1 and reads "150e-9" or "5.0e5" as STRINGS.
+# =============================================================================
+
+meta:
+  schema_version: 1
+  source: "VRM4-HIL specification and guide v1.0, ch. 3"
+  units: SI
+
+# -----------------------------------------------------------------------------
+# Power stage
+# Each entry: nominal (testing value) and, where provided by spec,
+# min/max of the programmable range.
+# -----------------------------------------------------------------------------
+power_stage:
+  Vin:         {nominal: 12.0, min: 10.8, max: 13.2}              # 12 V, 10.8-13.2 V
+  VID:         {nominal: 0.80, min: 0.60, max: 1.00, step: 5.0e-3} # 0.80 V, step 5 mV
+  N_phases: 4                                                     # interleaved at 90°
+  phase_shift_deg: 90.0
+  f_sw: 5.0e+5                                                    # 500 kHz per phase
+
+  # nominal phase parameters
+  L:          1.50e-7                                             # 150 nH
+  DCR:        2.0e-4                                              # 0.20 mOhm
+  Ron_H:      3.0e-3                                              # 3.0 mOhm
+  Ron_L:      1.0e-3                                              # 1.0 mOhm
+  body_diode:
+    Vf:       0.7                                                 # 0.7 V
+    Rd:       2.0e-3                                              # 2 mOhm
+
+  # output network
+  C:          6.0e-3                                              # 6.0 mF
+  ESR:        3.0e-4                                              # 0.30 mOhm
+  ESL:        {nominal: 0.0, PLT_17: 50.0e-12}                    # zero (MUST); 50 pH with PLT-17
+
+  # load line and load
+  R_LL:       {nominal: 3.0e-4, min: 0.0, max: 1.0e-3, step: 5.0e-5}  # 0.30 mOhm, 0-1.0 mOhm
+  I_out:      {min: 0.0, max: 100.0}                              # 0-100 A, impressed current
+  load_slew:  {nominal: 5.0e+8, max: 1.0e+9}                      # 500 A/us, up to 1000 A/us
+
+  # modulation and sequences
+  dead_time:
+    t_dr:     {nominal: 20.0e-9, min: 5.0e-9, max: 40.0e-9}       # 20 ns, 5-40 ns
+    t_df:     {nominal: 20.0e-9, min: 5.0e-9, max: 40.0e-9}       # separate for the two edges
+  D_max:      0.45
+  t_softstart: {nominal: 1.0e-3, min: 0.5e-3, max: 4.0e-3}        # 1.0 ms, 0.5-4 ms
+  VID_slew:   {nominal: 5.0e+3, min: 1.25e+3, max: 1.0e+4}        # 5 mV/us = 5000 V/s
+
+# -----------------------------------------------------------------------------
+# Protection thresholds
+# -----------------------------------------------------------------------------
+protections:
+  OCP_phase:  40.0           # A, average over one period
+  OCP_total:  120.0          # A
+  OVP:
+    offset_from_VID: +0.150  # V above VID
+    consecutive_samples: 2
+  UVP:
+    offset_from_VID: -0.300  # V below VID
+    persistence: 5.0e-6      # 5 us, active after PGOOD
+
+# -----------------------------------------------------------------------------
+# Virtual sensors and sampling
+# lsb and range in physical units; noise_sigma = Gaussian standard deviation
+# -----------------------------------------------------------------------------
+sensors:
+  Vout:
+    bits: 12
+    signed: false
+    lsb: 0.5e-3              # 0.5 mV
+    range: [0.0, 2.0475]
+    noise_sigma: 0.25e-3     # 0.25 mV
+  i_phase:
+    bits: 11
+    signed: true             # 2's complement
+    lsb: 0.1                 # 0.1 A
+    range: [-102.4, 102.3]
+    noise_sigma: 0.10        # A
+  Vin:
+    bits: 8
+    signed: false
+    lsb: 62.5e-3             # 62.5 mV
+    range: [0.0, 15.9375]
+    noise_sigma: 0.0         # zero
+
+sampling:
+  f_max: 2.0e+6              # 2 MHz = N * f_sw
+  timing_error_max: 10.0e-9  # +-10 ns on the SAMPLE_REQ edge (PLT-06)
+
+# -----------------------------------------------------------------------------
+# Mismatch sets
+# Each list has N_phases elements, index 0 = phase 1.
+# An absent entry in a set takes nominal (L, DCR) or zero (the others).
+# -----------------------------------------------------------------------------
+mismatch_sets:
+  M0:                        # ideal case, debug only
+    description: "nominal phases, perfect sensors"
+    sensor_noise: false                                         # 1.0 mOhm
+
+  M1:                        # applies to all tests unless specified
+    description: "typical dispersions, table 3.3"
+    sensor_noise: true
+    L:                 [1.50e-7, 1.35e-7, 1.50e-7, 1.65e-7]   # 150/135/150/165 nH
+    DCR:               [2.0e-4,  2.0e-4,  2.4e-4,  2.0e-4]    # 0.20/0.20/0.24/0.20 mOhm
+    pulse_extension:   [0.0,     8.0e-9,  0.0,     0.0]       # t_d,off - t_d,on: +8 ns phase 2
+    i_sense_gain_err:  [0.0,     0.0,     0.0,     0.02]      # +2 % phase 4
+    i_sense_offset:    [0.3,     0.0,     0.0,     0.0]       # +0.3 A phase 1
+
+# -----------------------------------------------------------------------------
+# Measurement conditions and definitions
+# Used by the analysis library (same for co-simulation and testbench)
+# -----------------------------------------------------------------------------
+test_conditions:
+  Vin: 12.0
+  VID: 0.80
+  R_LL: 3.0e-4
+  mismatch_set: M1
+  sensor_noise: true
+  dead_time: 20.0e-9
+
+measurement:
+  vout_filter_window:   0.5e-6   # moving average = 1/(N f_sw), removes 2 MHz ripple
+  static_avg_window:    100.0e-6 # static value
+  phase_avg_window:     100.0e-6 # phase average current (>= 50 periods)
+  ripple_window:        100.0e-6 # p-p of unfiltered Vout
+  limit_cycle:
+    movavg_window:      2.0e-6
+    observation_window: 200.0e-6
+    sensor_noise: false
